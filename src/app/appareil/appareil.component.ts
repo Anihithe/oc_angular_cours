@@ -38,5 +38,4 @@ export class AppareilComponent implements OnInit {
       this.appareilService.switchOnOne(this.index);
     }
   }
-
 }
