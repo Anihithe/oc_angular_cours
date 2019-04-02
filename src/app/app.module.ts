@@ -5,6 +5,15 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SignupComponent } from './auth/signup/signup.component';
+import { SigninComponent } from './auth/signin/signin.component';
+import { BookListComponent } from './book-list/book-list.component';
+import { SingleBookComponent } from './book-list/single-book/single-book.component';
+import { BookFormComponent } from './book-list/book-form/book-form.component';
+import { HeaderComponent } from './header/header.component';
+import { AuthService } from './services/auth.service';
+import { BooksService } from './services/books.service';
+import { AuthGuardService } from './services/auth-guard.service';
 
 const appRoutes: Routes = [
 ];
@@ -12,6 +21,12 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
+    SignupComponent,
+    SigninComponent,
+    BookListComponent,
+    SingleBookComponent,
+    BookFormComponent,
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -21,6 +36,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes)
   ],
   providers: [
+    AuthService, BooksService, AuthGuardService
   ],
   bootstrap: [AppComponent]
 })
