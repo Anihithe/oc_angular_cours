@@ -16,6 +16,11 @@ import { BooksService } from './services/books.service';
 import { AuthGuardService } from './services/auth-guard.service';
 
 const appRoutes: Routes = [
+  { path: 'auth/signup', component: SignupComponent },
+  { path: 'auth/signin', component: SigninComponent },
+  { path: 'books', component: BookListComponent },
+  { path: 'books/new', component: BookFormComponent },
+  { path: 'books/view/:id', component: SingleBookComponent },
 ];
 
 @NgModule({
