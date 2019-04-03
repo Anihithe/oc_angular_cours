@@ -15,7 +15,7 @@ export class BooksService {
     this.getBooks();
   }
 
-  emitBook() {
+  emitBooks() {
     this.bookSubject.next(this.books);
   }
 
@@ -27,7 +27,7 @@ export class BooksService {
     Firebase.database().ref('/books')
       .on('value', (data: Firebase.database.DataSnapshot) => {
         this.books = data.val() ? data.val() : [];
-        this.emitBook();
+        this.emitBooks();
       });
   }
 
@@ -48,10 +48,21 @@ export class BooksService {
   createNewBook(newBook: Book) {
     this.books.push(newBook);
     this.saveBooks();
-    this.emitBook();
+    this.emitBooks();
   }
 
   removeBook(book: Book) {
+    if (book.photo) {
+      const storageRef = Firebase.storage().refFromURL(book.photo);
+      storageRef.delete().then(
+        () => {
+          console.log('Photo removed!');
+        },
+        (error) => {
+          console.log('Could not remove photo! : ' + error);
+        }
+      );
+    }
     const bookIndexToRemove = this.books.findIndex(
       (bookEl) => {
         if (bookEl === book) {
@@ -61,6 +72,24 @@ export class BooksService {
     );
     this.books.splice(bookIndexToRemove, 1);
     this.saveBooks();
-    this.emitBook();
+    this.emitBooks();
+  }
+
+  uploadFile(file: File) {
+    return new Promise(
+      (resolve, reject) => {
+        const almostUniqueFileName = Date.now().toString();
+        const upload = Firebase.storage().ref().child(`images/${almostUniqueFileName}${file.name}`).put(file);
+        upload.on(Firebase.storage.TaskEvent.STATE_CHANGED, () => {
+          console.log('Chargement...');
+        },
+          (error) => {
+            console.log(`Erreur de chargement ! : ${error}`);
+          },
+          () => {
+            resolve(Firebase.storage().ref().child(`images/${almostUniqueFileName}${file.name}`).getDownloadURL());
+          });
+      }
+    );
   }
 }

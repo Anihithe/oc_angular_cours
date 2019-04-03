@@ -22,7 +22,7 @@ export class BookListComponent implements OnInit, OnDestroy {
         this.books = books;
       }
     );
-    this.bookService.emitBook();
+    this.bookService.emitBooks();
   }
 
   onNewBook() {

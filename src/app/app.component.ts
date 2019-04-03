@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
       authDomain: 'library-c3e6b.firebaseapp.com',
       databaseURL: 'https://library-c3e6b.firebaseio.com',
       projectId: 'library-c3e6b',
-      storageBucket: '',
+      storageBucket: 'library-c3e6b.appspot.com',
       messagingSenderId: '922361687752'
     };
     firebase.initializeApp(config);
