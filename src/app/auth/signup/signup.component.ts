@@ -40,7 +40,7 @@ export class SignupComponent implements OnInit {
         this.errorMessage = error;
       }
 
-    )
+    );
   }
 
 }
